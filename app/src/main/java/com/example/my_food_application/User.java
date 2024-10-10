@@ -3,7 +3,7 @@ package com.example.my_food_application;
 public class User {
     private String email;
     private String password;
-    private String token; // Add a token field if needed for authenticated API calls
+    private String token; // Token for authenticated API calls
 
     // Constructor for registration (email & password)
     public User(String email, String password) {

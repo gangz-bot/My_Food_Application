@@ -1,21 +1,37 @@
 package com.example.my_food_application;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
-
+import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SecondActivity extends AppCompatActivity {
+    private Button locationButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.page2nd); // Ensure this points to your second layout
+        setContentView(R.layout.page2nd);
 
-        double latitude = getIntent().getDoubleExtra("latitude", 0);
-        double longitude = getIntent().getDoubleExtra("longitude", 0);
+        locationButton = findViewById(R.id.locationButton);
 
-        TextView locationTextView = findViewById(R.id.text_view_location); // Ensure this ID exists in page2nd.xml
-        locationTextView.setText("Latitude: " + latitude + "\nLongitude: " + longitude);
+        // Simulate loading with a progress bar
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                locationButton.setVisibility(View.VISIBLE); // Make the button visible after loading
+            }
+        }, 2000); // Simulate a 2-second loading time
+
+        locationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SecondActivity.this, RestaurantActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

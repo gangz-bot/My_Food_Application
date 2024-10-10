@@ -37,6 +37,7 @@
         </activity>
 
         <activity android:name=".SecondActivity" />
+        <activity android:name=".RestaurantActivity" />
 
     </application>
 </manifest>

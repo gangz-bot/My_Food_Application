@@ -21,4 +21,3 @@ public class ApiResponse {
         this.userId = userId;
     }
 }
-
