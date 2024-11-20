@@ -18,20 +18,13 @@ public class SecondActivity extends AppCompatActivity {
         locationButton = findViewById(R.id.locationButton);
 
         // Simulate loading with a progress bar
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                locationButton.setVisibility(View.VISIBLE); // Make the button visible after loading
-            }
-        }, 2000); // Simulate a 2-second loading time
+        new Handler().postDelayed(() -> locationButton.setVisibility(View.VISIBLE), 2000);
 
-        locationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SecondActivity.this, RestaurantActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        locationButton.setOnClickListener(view -> {
+            // Navigate to RestaurantActivity
+            Intent intent = new Intent(SecondActivity.this, RestaurantActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 }

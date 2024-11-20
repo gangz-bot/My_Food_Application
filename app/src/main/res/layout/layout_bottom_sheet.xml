@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textViewBottomSheetTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Only Cash on Delivery"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="8dp" />
+
+    <Button
+        android:id="@+id/buttonTakeAway"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Take Away"
+        android:layout_marginTop="8dp" />
+
+    <Button
+        android:id="@+id/buttonRestaurantDelivery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Restaurant Delivery"
+        android:layout_marginTop="8dp" />
+</LinearLayout>

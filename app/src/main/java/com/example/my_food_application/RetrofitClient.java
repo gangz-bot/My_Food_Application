@@ -4,8 +4,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
+    private static final String BASE_URL = "http://192.168.16.89:5000"; // Replace with your actual base URL
     private static Retrofit retrofit;
-    private static final String BASE_URL = "http://192.168.101.89:5000/"; // Your local IP address and port
 
     public static Retrofit getInstance() {
         if (retrofit == null) {
@@ -15,5 +15,9 @@ public class RetrofitClient {
                     .build();
         }
         return retrofit;
+    }
+
+    public static ApiService getApiService() {
+        return getInstance().create(ApiService.class);
     }
 }

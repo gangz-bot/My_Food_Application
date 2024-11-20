@@ -4,6 +4,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 import java.util.List;
 
@@ -16,6 +17,16 @@ public interface ApiService {
     Call<ApiResponse> loginUser(@Body User user);
 
     // Fetch restaurant data with GET request
-    @GET("restaurants") // Adjust endpoint if necessary
+    @GET("/restaurants")
     Call<List<Restaurant>> getRestaurants();
+
+    @GET("/restaurants/{id}/menu")
+    Call<List<MenuItem>> getMenu(@Path("id") String restaurantId);
+
+    @POST("/saveAddress")
+    Call<Void> saveAddress(@Body AddressRequest addressRequest);
+
+    @POST("/send-message")
+    Call<Void> sendMessage(@Body MessageRequest messageRequest);
+
 }

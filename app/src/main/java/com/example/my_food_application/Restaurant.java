@@ -2,14 +2,14 @@ package com.example.my_food_application;
 
 public class Restaurant {
     private String name;
-    private float rating;
-    private String imageUrl;
+    private double rating;
+    private String image;
     private String location;
 
-    public Restaurant(String name, float rating, String imageUrl, String location) {
+    public Restaurant(String name, double rating, String image, String location) {
         this.name = name;
         this.rating = rating;
-        this.imageUrl = imageUrl;
+        this.image = image;
         this.location = location;
     }
 
@@ -17,12 +17,12 @@ public class Restaurant {
         return name;
     }
 
-    public float getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImage() {
+        return image;
     }
 
     public String getLocation() {

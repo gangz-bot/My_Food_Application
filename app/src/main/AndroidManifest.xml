@@ -29,6 +29,7 @@
         <!-- Main Activity -->
         <activity
             android:name=".MainActivity"
+
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,6 +39,10 @@
 
         <activity android:name=".SecondActivity" />
         <activity android:name=".RestaurantActivity" />
+        <activity android:name=".MenuActivity" />
+        <activity android:name=".CartActivity" />
+        <activity android:name=".AddressActivity" />
+
 
     </application>
 </manifest>

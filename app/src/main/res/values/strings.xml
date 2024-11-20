@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">My_Food_Application</string>
+    <string name="restaurant_image">Your Restaurant Image</string>
 </resources>
