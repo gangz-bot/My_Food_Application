@@ -2,17 +2,22 @@ package com.example.my_food_application;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CartActivity extends AppCompatActivity implements CartAdapter.OnCartUpdateListener {
     private RecyclerView recyclerViewCart;
@@ -48,10 +53,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
         updateTotalPrice();
 
         // Handle "Add Address" button click
-        addAddressButton.setOnClickListener(v -> {
-            Intent intent = new Intent(CartActivity.this, AddressActivity.class);
-            startActivity(intent);
-        });
+        addAddressButton.setOnClickListener(v -> saveOrderAndProceedToAddress());
     }
 
     @Override
@@ -64,6 +66,40 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnCar
         for (Map.Entry<MenuItem, Integer> entry : cart.entrySet()) {
             totalPrice += entry.getKey().getPrice() * entry.getValue();
         }
-        totalPriceTextView.setText(String.format("Total: $%.2f", totalPrice));
+        totalPriceTextView.setText(String.format("Total: ₹%.2f", totalPrice));
+    }
+
+    private void saveOrderAndProceedToAddress() {
+        List<OrderItem> orderItems = new ArrayList<>();
+        double totalPrice = 0;
+
+        for (Map.Entry<MenuItem, Integer> entry : cart.entrySet()) {
+            MenuItem menuItem = entry.getKey();
+            int quantity = entry.getValue();
+            orderItems.add(new OrderItem(menuItem.getName(), quantity, menuItem.getPrice()));
+            totalPrice += menuItem.getPrice() * quantity;
+        }
+
+        ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
+        OrderRequest orderRequest = new OrderRequest(orderItems, totalPrice);
+
+        apiService.saveOrder(orderRequest).enqueue(new Callback<OrderResponse>() {
+            @Override
+            public void onResponse(Call<OrderResponse> call, Response<OrderResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    String orderId = response.body().getOrderId();
+                    Intent intent = new Intent(CartActivity.this, AddressActivity.class);
+                    intent.putExtra("orderId", orderId);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(CartActivity.this, "Failed to save order", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrderResponse> call, Throwable t) {
+                Toast.makeText(CartActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

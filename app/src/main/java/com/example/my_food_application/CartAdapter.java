@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,10 +20,12 @@ import java.util.Map;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private final HashMap<MenuItem, Integer> cart;
     private final OnCartUpdateListener cartUpdateListener;
+    private final List<Map.Entry<MenuItem, Integer>> cartItems;
 
     public CartAdapter(HashMap<MenuItem, Integer> cart, OnCartUpdateListener cartUpdateListener) {
         this.cart = cart;
         this.cartUpdateListener = cartUpdateListener;
+        this.cartItems = new ArrayList<>(cart.entrySet());
     }
 
     @NonNull
@@ -35,24 +38,24 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        List<Map.Entry<MenuItem, Integer>> cartItems = List.copyOf(cart.entrySet());
         MenuItem menuItem = cartItems.get(position).getKey();
         int quantity = cartItems.get(position).getValue();
 
         holder.itemName.setText(menuItem.getName());
-        holder.itemPrice.setText(String.format("$%.2f", menuItem.getPrice()));
+        holder.itemPrice.setText(String.format("₹%.2f", menuItem.getPrice()));
         holder.itemQuantity.setText(String.valueOf(quantity));
 
         // Load item image
         Glide.with(holder.itemView.getContext())
                 .load(menuItem.getImageUrl())
+
                 .into(holder.itemImage);
 
         // Handle "+" button click
         holder.buttonIncrease.setOnClickListener(v -> {
             cart.put(menuItem, quantity + 1);
-            notifyItemChanged(position);
             cartUpdateListener.onCartUpdated();
+            updateCartItems();
         });
 
         // Handle "-" button click
@@ -62,14 +65,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             } else {
                 cart.remove(menuItem);
             }
-            notifyDataSetChanged();
             cartUpdateListener.onCartUpdated();
+            updateCartItems();
         });
+    }
+
+    private void updateCartItems() {
+        this.cartItems.clear();
+        this.cartItems.addAll(cart.entrySet());
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return cart.size();
+        return cartItems.size();
     }
 
     public interface OnCartUpdateListener {

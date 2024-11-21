@@ -15,14 +15,19 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
-    private final List<MenuItem> menuItems;
-    private final HashMap<MenuItem, Integer> cart; // To store cart quantities
-    private final OnCartUpdateListener cartUpdateListener; // Interface to notify cart updates
+    private List<MenuItem> menuItems;
+    private final HashMap<MenuItem, Integer> cart;
+    private final OnCartUpdateListener cartUpdateListener;
 
     public MenuAdapter(List<MenuItem> menuItems, HashMap<MenuItem, Integer> cart, OnCartUpdateListener cartUpdateListener) {
         this.menuItems = menuItems;
         this.cart = cart;
         this.cartUpdateListener = cartUpdateListener;
+    }
+
+    public void updateMenu(List<MenuItem> newMenuItems) {
+        this.menuItems = newMenuItems;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -36,16 +41,18 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MenuItem menuItem = menuItems.get(position);
+
         holder.name.setText(menuItem.getName());
-        holder.price.setText(String.format("$%.2f", menuItem.getPrice()));
+        holder.price.setText(String.format("₹%.2f", menuItem.getPrice()));
 
         // Set quantity from cart
         int quantity = cart.getOrDefault(menuItem, 0);
         holder.quantity.setText(String.valueOf(quantity));
 
-        // Load image dynamically
+        // Load image dynamically using Glide
         Glide.with(holder.itemView.getContext())
                 .load(menuItem.getImageUrl())
+                
                 .into(holder.image);
 
         // Handle "+" button click
@@ -73,8 +80,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name, price, quantity, increaseButton, decreaseButton;
+        TextView name, price, quantity;
         ImageView image;
+        TextView increaseButton, decreaseButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -82,12 +90,12 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.ViewHolder> {
             price = itemView.findViewById(R.id.textViewMenuItemPrice);
             image = itemView.findViewById(R.id.imageViewMenuItem);
             quantity = itemView.findViewById(R.id.textViewQuantity);
-            increaseButton = itemView.findViewById(R.id.buttonIncrease); // Treated as TextView
-            decreaseButton = itemView.findViewById(R.id.buttonDecrease); // Treated as TextView
+            increaseButton = itemView.findViewById(R.id.buttonIncrease);
+            decreaseButton = itemView.findViewById(R.id.buttonDecrease);
         }
     }
 
     public interface OnCartUpdateListener {
-        void onCartUpdated(); // Notify when cart is updated
+        void onCartUpdated();
     }
 }

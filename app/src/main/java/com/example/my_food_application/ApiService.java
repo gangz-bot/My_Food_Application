@@ -5,6 +5,8 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.PUT;
+
 
 import java.util.List;
 
@@ -23,8 +25,12 @@ public interface ApiService {
     @GET("/restaurants/{id}/menu")
     Call<List<MenuItem>> getMenu(@Path("id") String restaurantId);
 
-    @POST("/saveAddress")
-    Call<Void> saveAddress(@Body AddressRequest addressRequest);
+    @POST("/order/saveOrder")
+    Call<OrderResponse> saveOrder(@Body OrderRequest orderRequest);
+
+    @PUT("/order/saveAddress/{orderId}")
+    Call<Void> saveAddress(@Path("orderId") String orderId, @Body AddressRequest addressRequest);
+
 
     @POST("/send-message")
     Call<Void> sendMessage(@Body MessageRequest messageRequest);
