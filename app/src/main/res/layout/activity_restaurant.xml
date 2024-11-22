@@ -17,6 +17,7 @@
             android:id="@+id/editTextSearch"
             android:layout_width="0dp"
             android:layout_height="48dp"
+            android:textColor="@color/black"
             android:layout_weight="1"
             android:hint="Search..."
             android:textSize="16sp"

@@ -93,7 +93,7 @@ public class AddressActivity extends AppCompatActivity {
     private void sendMessage(String option) {
         ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
         String phoneNumber = editTextPhoneNumber.getText().toString().trim();
-        String orderDetails = "Your order for " + option + " has been placed.";
+        String orderDetails = "Your order for " + option + " has been placed." + "Thank you for choosing us";
 
         apiService.sendMessage(new MessageRequest(phoneNumber, orderDetails)).enqueue(new Callback<Void>() {
             @Override

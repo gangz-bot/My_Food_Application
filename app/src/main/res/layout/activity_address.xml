@@ -1,41 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@android:color/white"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/editTextAddress"
-        android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Main Address"
-        android:inputType="text" />
+        android:layout_centerInParent="true">
 
-    <EditText
-        android:id="@+id/editTextTownArea"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Town/Area"
-        android:inputType="text" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@drawable/rounded_background"
+            android:clipToPadding="false">
 
-    <EditText
-        android:id="@+id/editTextCity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="City"
-        android:inputType="text" />
+            <EditText
+                android:id="@+id/editTextAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Main Address"
+                android:textColor="@color/black"
 
-    <EditText
-        android:id="@+id/editTextPhoneNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Phone Number"
-        android:inputType="phone" />
+                android:inputType="text"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/rounded_background" />
 
-    <Button
-        android:id="@+id/buttonSaveAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Save Detail" />
-</LinearLayout>
+            <EditText
+                android:id="@+id/editTextTownArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:hint="Town/Area"
+                android:inputType="text"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/rounded_background" />
+
+            <EditText
+                android:id="@+id/editTextCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:hint="City"
+                android:inputType="text"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/rounded_background" />
+
+            <EditText
+                android:id="@+id/editTextPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone Number"
+                android:inputType="phone"
+                android:padding="12dp"
+                android:layout_marginBottom="24dp"
+                android:textColor="@color/black"
+                android:background="@drawable/rounded_background" />
+
+            <Button
+                android:id="@+id/buttonSaveAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save Detail"
+                android:padding="12dp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:backgroundTint="@color/colorPrimary"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
