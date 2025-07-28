@@ -63,17 +63,31 @@ Click Run.
 
 📁 Folder Structure (Simplified)
 ```markdown
-My_Food_Application/
-├── app/
-│   ├── java/
-│   │   ├── activities/
-│   │   ├── adapters/
-│   │   ├── models/
-│   │   ├── network/
-│   └── res/
-│       ├── layout/
-│       ├── drawable/
-│       └── values/
+├── app/                      # Android application module 
+│   ├── manifests/
+│   └── src/main/
+│       ├── java/
+│       │   └── com/example/my_food_application/
+│       │       ├── AddressActivity.java
+│       │       ├── CartAdapter.java
+│       │       ├── MainActivity.java
+│       │       ├── MenuActivity.java
+│       │       ├── OrderItem.java
+│       │       ├── Restaurant.java
+│       │       ├── RestaurantAdapter.java
+│       │       ├── RetrofitClient.java
+│       │       └── ... (and other .java files)
+│       └── res/
+│           ├── layout/
+│           ├── drawable/
+│           └── values/
+├── models/                   # Backend Mongoose schemas 
+├── node_modules/             # Node.js dependencies 
+├── routes/                   # Backend API routes 
+├── .gitignore
+├── app.js                    # Backend server entry point 
+├── package.json              # Backend dependencies and scripts 
+└── README.md
 ```
 ---
 
